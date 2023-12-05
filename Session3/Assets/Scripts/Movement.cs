@@ -7,7 +7,8 @@ public class Movement : MonoBehaviour
     [SerializeField] private float speed = 20f;
     [SerializeField] private float jumpForce = 1000f;
     [SerializeField] private float gravity = -9.81f;
-    private float speedValue;
+    [SerializeField] private Transform initialTransform;
+    public float speedValue;
     private Rigidbody rb;
     private bool isGround = true;
     // Start is called before the first frame update
@@ -37,8 +38,10 @@ public class Movement : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag == "Hall")
-        isGround = true;
+            isGround = true;
         speedValue = speed;
+        if (collision.gameObject.CompareTag("Obstacle"))
+            transform.position = initialTransform.position;
         
     }
 }
